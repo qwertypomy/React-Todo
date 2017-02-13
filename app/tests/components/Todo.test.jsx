@@ -20,7 +20,6 @@ describe('Todo', () => {
     };
     var action = actions.startToggleTodo(todoData.id, !todoData.completed);
 
-
     var spy = expect.createSpy();
     var todo = TestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(todo));

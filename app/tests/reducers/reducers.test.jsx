@@ -1,10 +1,11 @@
 var expect = require('expect');
-var reducers = require('reducers');
 var df = require('deep-freeze-strict');
+
+var reducers = require('reducers');
 
 describe('Reducers', () => {
   describe('searchTextReducer', () => {
-    it('should set search text', () => {
+    it('should set searchText', () => {
       var action = {
         type: 'SET_SEARCH_TEXT',
         searchText: 'dog'
@@ -14,14 +15,18 @@ describe('Reducers', () => {
       expect(res).toEqual(action.searchText);
     });
   });
+
   describe('showCompletedReducer', () => {
     it('should toggle showCompleted', () => {
-      var action = { type: 'TOGGLE_SHOW_COMPLETED' };
+      var action = {
+        type: 'TOGGLE_SHOW_COMPLETED'
+      };
       var res = reducers.showCompletedReducer(df(false), df(action));
 
       expect(res).toEqual(true);
     });
   });
+
   describe('todosReducer', () => {
     it('should add new todo', () => {
       var action = {
@@ -38,18 +43,19 @@ describe('Reducers', () => {
       expect(res.length).toEqual(1);
       expect(res[0]).toEqual(action.todo);
     });
+
     it('should update todo', () => {
-      var updates = {
-        completed: false,
-        completedAt: null
-      };
       var todos = [{
-        id: 123,
+        id: '123',
         text: 'Something',
         completed: true,
         createdAt: 123,
         completedAt: 125
       }];
+      var updates = {
+        completed: false,
+        completedAt: null
+      };
       var action = {
         type: 'UPDATE_TODO',
         id: todos[0].id,
@@ -75,6 +81,7 @@ describe('Reducers', () => {
         todos
       };
       var res = reducers.todosReducer(df([]), df(action));
+
       expect(res.length).toEqual(1);
       expect(res[0]).toEqual(todos[0]);
     });
@@ -88,10 +95,10 @@ describe('Reducers', () => {
         createdAt: 33000
       }];
       var action = {
-        type: 'LOGOUT',
-        todos
+        type: 'LOGOUT'
       };
-      var res = reducers.todosReducer(df([]), df(action));
+      var res = reducers.todosReducer(df(todos), df(action));
+
       expect(res.length).toEqual(0);
     });
   });
@@ -113,10 +120,11 @@ describe('Reducers', () => {
       const authData = {
         uid: '123abc'
       };
-      var action = {
+      const action = {
         type: 'LOGOUT'
       };
-      var res = reducers.authReducer(df(authData), df(action));
+      const res = reducers.authReducer(df(authData), df(action));
+
       expect(res).toEqual({});
     });
   });

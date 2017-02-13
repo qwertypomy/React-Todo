@@ -2,7 +2,7 @@ var uuid = require('node-uuid');
 var moment = require('moment');
 
 export var searchTextReducer = (state = '', action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_SEARCH_TEXT':
       return action.searchText;
     default:
@@ -16,7 +16,7 @@ export var showCompletedReducer = (state = false, action) => {
       return !state;
     default:
       return state;
-  };
+  }
 };
 
 export var todosReducer = (state = [], action) => {
@@ -26,14 +26,9 @@ export var todosReducer = (state = [], action) => {
         ...state,
         action.todo
       ];
-    case 'ADD_TODOS':
-      return [
-        ...state,
-        ...action.todos
-      ];
     case 'UPDATE_TODO':
       return state.map((todo) => {
-        if (todo.id == action.id) {
+        if (todo.id === action.id) {
           return {
             ...todo,
             ...action.updates
@@ -42,11 +37,16 @@ export var todosReducer = (state = [], action) => {
           return todo;
         }
       });
+    case 'ADD_TODOS':
+      return [
+        ...state,
+        ...action.todos
+      ];
     case 'LOGOUT':
       return [];
     default:
       return state;
-  };
+  }
 };
 
 export var authReducer = (state = {}, action) => {
@@ -59,5 +59,5 @@ export var authReducer = (state = {}, action) => {
       return {};
     default:
       return state;
-  };
+  }
 };
